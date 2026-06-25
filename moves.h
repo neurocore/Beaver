@@ -12,16 +12,16 @@ enum Flags : u8
   CapProm // 11
 };
 
-struct alignas(16) Move
+struct Move // 8 bytes
 {
-  SQ from;
-  SQ to[12];
-  u8 captures;
-  Flags flags;
+  SQ from, to; // 2
+  Flags flags; // 1
+  u8 captures; // 1
+  u32 bb_caps; // 4
 };
 
-static const Move None = { SQ_None, {}, 0, Quiet };
-static const Move Null = { SQ_Null, {}, 0, Quiet };
+static const Move None = { SQ_None, SQ_None, Quiet, 0, 0u };
+static const Move Null = { SQ_Null, SQ_Null, Quiet, 0, 0u };
 
 INLINE bool is_empty(const Move & move) { return out(move.from); }
 INLINE bool is_null(const Move & move) { return move.from == SQ_Null; }
@@ -38,31 +38,23 @@ INLINE bool is_attack(const Move & move) { return is_attack(move.flags); }
 
 INLINE std::string to_string(const Move & move)
 {
-  const u8 caps = move.captures;
-  const char delim = caps ? 'x' : '-';
-  std::string str = to_string(move.from);
-
-  for (int i = 0; i < caps + !caps; i++)
-  {
-    str += delim + to_string(move.to[i]);
-  }
-  return str;
+  const char delim = move.captures ? 'x' : '-';
+  return to_string(move.from) + delim
+       + to_string(move.to);
 }
 
 INLINE bool same(const Move & a, const Move & b)
 {
   if (a.from != b.from) return false;
   if (a.flags != b.flags) return false;
-  if (a.captures != b.captures) return false;
+  if (a.bb_caps != b.bb_caps) return false;
 
-  // TODO: check that we capture same pieces
-
-  return false;
+  return true;
 }
 
 INLINE Move mv_quiet(SQ from, SQ to)
 {
-  return { from, { to }, 0, Quiet };
+  return { from, to, Quiet, 0, 0u };
 }
 
 using History = int[Color_N][SQ_N][SQ_N];

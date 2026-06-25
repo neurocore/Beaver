@@ -3,14 +3,14 @@
 #include "piece.h"
 #include "square.h"
 #include "moves.h"
+#include "consts.h"
 
 namespace beaver {
 
 struct Board
 {
   Color color;
-  Piece square[256];
-  Arr<SQ, 12> piece[PT_N][Color_N];
+  u32 piece[PT_N][Color_N];
   u64 hash;
 
 public:
@@ -21,18 +21,17 @@ public:
 
   bool is_draw() const;
   bool is_repetition() const;
-  bool is_empty(SQ sq) const;
+  Piece square(SQ sq) const;
 
   template<Color Col>
   bool is_opp(SQ sq) const;
 
   u64 calc_hash() const;
 
-  bool set(std::string fen/* = Pos::Init*/);
+  bool set(std::string fen = Pos::Init);
   std::string to_fen();
 
-  void print() const;
-  void print(Move move) const;
+  std::string to_string() const;
 
   bool make(Move move);
   void unmake(Move move);
@@ -51,7 +50,7 @@ public:
 
 private:
   inline void place(SQ sq, Piece p);
-  inline void remove(SQ sq);
+  inline void remove(SQ sq, Piece p);
 };
 
 template<Color Col>
