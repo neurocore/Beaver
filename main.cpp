@@ -17,11 +17,17 @@ int main()
     say<1>("{} v{} - russian checkers engine by {}\n", Name, Vers, Auth);
   }
 
-  build_magics();
+  //build_magics();
   
   Board B;
   B.set();
   log("{}", B.to_string());
+
+  /*for (SQ sq = A1; sq < SQ_N; ++sq)
+  {
+    log("{}\n", sq);
+    print32(k_att(0u, sq));
+  }*/
 
   /*print32(between[A1][D4]);
   print32(between[D4][A1]);
