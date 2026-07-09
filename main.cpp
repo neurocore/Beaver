@@ -23,6 +23,16 @@ int main()
   B.set();
   log("{}", B.to_string());
 
+  /*u32 bb = Full;
+  print32(bb);
+  print32(shift2<UL>(bb));
+  print32(bb);
+  print32(shift2<UR>(bb));
+  print32(bb);
+  print32(shift2<DL>(bb));
+  print32(bb);
+  print32(shift2<DR>(bb));*/
+
   /*for (SQ sq = A1; sq < SQ_N; ++sq)
   {
     log("{}\n", sq);

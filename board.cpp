@@ -135,4 +135,9 @@ void Board::remove(SQ sq, Piece p)
   //hash ^= Zobrist::key[p][sq];
 }
 
+INLINE u32 Board::occupied() const
+{
+  return piece[0][0] | piece[0][1] | piece[1][0] | piece[1][1];
+}
+
 }

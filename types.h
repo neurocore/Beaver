@@ -23,4 +23,6 @@ using MS = i64; // milliseconds
 
 using Strings = std::vector<std::string>;
 
+enum Dir { UL, UR, DL, DR, Dir_N };
+
 }

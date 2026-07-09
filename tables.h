@@ -5,8 +5,6 @@
 
 namespace beaver {
 
-enum Dir { UL, UR, DL, DR, Dir_N };
-
 using SQ_BB  = std::array<u32, SQ_NN>;
 using SQ_SQ  = std::array<SQ,  SQ_NN>;
 using SQ_Val = std::array<int, SQ_NN>;

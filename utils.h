@@ -216,10 +216,17 @@ struct Arr
     arr[cnt++] = val;
   }
 
-  void pop_back()
+  void add_unique(const T & val)
+  {
+    assert(cnt < Capacity - 1);
+    if (find(val) == Capacity)
+      arr[cnt++] = val;
+  }
+
+  T pop_back()
   {
     assert(cnt > 0);
-    --cnt;
+    return arr[--cnt];
   }
 
   void erase(size_t i)
